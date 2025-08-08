@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Lesson: Database Queries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals with Soft Blue accents -->
+    <!-- Application Structure Plan: The application is structured as a step-by-step digital lesson to mirror and enhance the original plan's pedagogical flow. It starts with an introduction, moves to a core interactive database simulation where users can apply filters and sorting rules via buttons, and concludes with a knowledge check. This structure was chosen to make the abstract concepts of querying tangible and interactive, providing a "digital whiteboard" experience perfect for classroom demonstration. The flow guides the user logically from concept to practice to assessment. -->
+    <!-- Visualization & Content Choices: The central visualization is an HTML table styled with Tailwind, representing the database. This table is dynamically rendered using JavaScript. Interactive elements are buttons that trigger filtering and sorting functions. This direct manipulation helps students understand cause and effect. A Chart.js bar chart is included in the assessment section to visually summarize queried data, introducing a data analysis component. This approach transforms the static lesson into an engaging, hands-on tool, confirming NO SVG/Mermaid is used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .content-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .interactive-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .table-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Aralin sa Database: Pagsasala at Pag-uuri</h1>
+            <p class="text-slate-600 mt-2">Isang Interaktibong Gabay para sa Grade 9</p>
+        </header>
+
+        <main class="space-y-8">
+
+            <section id="introduction" class="content-card p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">1. Pambungad: Ano ang Ating Matututunan?</h2>
+                <div class="space-y-4 text-slate-700">
+                    <p>Maligayang pagdating sa ating aralin! Ang database ay isang organisadong koleksyon ng impormasyon. Ngayon, tutuklasin natin kung paano magtanong (query) sa isang database gamit ang dalawang mahahalagang pamamaraan: ang <strong>pag-filter (filtering)</strong> at <strong>pag-sort (sorting)</strong>.</p>
+                    <p>Isipin na mayroon tayong listahan ng lahat ng estudyante sa paaralan. Paano natin mabilis na mahahanap ang mga kaklase lang natin? O paano natin aayusin ang listahan ayon sa apelyido? Iyan ang sasagutin natin ngayon!</p>
+                </div>
+            </section>
+
+            <section id="interactive-database" class="content-card p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">2. Ang Ating Halimbawa: Talaan ng mga Estudyante</h2>
+                <p class="text-slate-700 mb-6">Narito ang isang simpleng database na naglalaman ng impormasyon tungkol sa ilang mag-aaral. Gagamitin natin ito upang isagawa ang pag-filter at pag-sort. Pindutin ang mga buton sa ibaba upang makita kung paano ito gumagana.</p>
+                
+                <div id="controls" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 border border-slate-200 rounded-lg">
+                        <h3 class="font-bold mb-3 text-lg">Subukan ang Pag-filter (Filtering)</h3>
+                        <p class="text-sm text-slate-600 mb-3">Pumili ng kondisyon para ipakita lang ang mga partikular na datos.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="filterBySection('A')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Ipakita ang Seksyon A</button>
+                            <button onclick="filterByFood('Adobo')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Mahilig sa Adobo</button>
+                            <button onclick="filterByFood('Sinigang')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Mahilig sa Sinigang</button>
+                        </div>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-lg">
+                        <h3 class="font-bold mb-3 text-lg">Subukan ang Pag-sort (Sorting)</h3>
+                        <p class="text-sm text-slate-600 mb-3">Ayusin ang buong listahan sa isang partikular na pagkakasunud-sunod.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="sortByName('asc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Pangalan (A-Z)</button>
+                            <button onclick="sortByGrade('desc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Baitang (Pataas)</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mb-4">
+                     <button onclick="resetTable()" class="interactive-btn bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-lg">I-reset ang Talaan</button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-slate-100">
+                            <tr>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Pangalan (Name)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Baitang (Grade)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Seksyon (Section)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Paboritong Pagkain (Favorite Food)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="database-table">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="assessment" class="content-card p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">3. Pagsusulit: Suriin ang Iyong Kaalaman</h2>
+                <p class="text-slate-700 mb-6">Ngayong alam na natin ang filtering at sorting, subukan nating sagutin ang ilang tanong. Gamitin ang interactive na tsart sa ibaba para mas maunawaan ang datos.</p>
+                <div class="space-y-4">
+                    <div class="p-4 border border-slate-200 rounded-lg">
+                        <p class="font-semibold mb-2">Tanong 1: Kung ifi-filter natin ang listahan para ipakita lang ang mga estudyante mula sa Grade 9, sino-sino ang makikita natin?</p>
+                        <div id="q1-feedback" class="p-2 my-2 rounded-lg text-center font-medium hidden"></div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="checkAnswer('q1', 'correct')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Juan, Maria, Pedro</button>
+                            <button onclick="checkAnswer('q1', 'wrong')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Ana, Lito</button>
+                        </div>
+                    </div>
+                     <div class="p-4 border border-slate-200 rounded-lg">
+                        <p class="font-semibold mb-2">Tanong 2: Anong uri ng 'sort' ang gagamitin para ayusin ang mga pangalan mula Z hanggang A?</p>
+                        <div id="q2-feedback" class="p-2 my-2 rounded-lg text-center font-medium hidden"></div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="checkAnswer('q2', 'wrong')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Ascending</button>
+                            <button onclick="checkAnswer('q2', 'correct')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Descending</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-center mb-4">Ilang Estudyante Bawat Baitang?</h3>
+                    <div class="chart-container">
+                        <canvas id="gradeChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-12 text-slate-500 text-sm">
+            <p>&copy; 2025 Computer Education Interactive. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const initialData = [
+            { name: 'Juan Dela Cruz', grade: 9, section: 'A', food: 'Adobo' },
+            { name: 'Maria Santos', grade: 9, section: 'B', food: 'Sinigang' },
+            { name: 'Pedro Reyes', grade: 9, section: 'A', food: 'Lechon' },
+            { name: 'Ana Lim', grade: 10, section: 'A', food: 'Adobo' },
+            { name: 'Lito Garcia', grade: 8, section: 'C', food: 'Sinigang' },
+            { name: 'Sofia Mercado', grade: 10, section: 'B', food: 'Adobo' },
+            { name: 'Carlos David', grade: 8, section: 'A', food: 'Lechon' },
+        ];
+
+        let currentData = [...initialData];
+        let gradeChart;
+
+        const tableBody = document.getElementById('database-table');
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-200 table-fade-in';
+                tr.innerHTML = `
+                    <td class="py-3 px-4">${row.name}</td>
+                    <td class="py-3 px-4">${row.grade}</td>
+                    <td class="py-3 px-4">${row.section}</td>
+                    <td class="py-3 px-4">${row.food}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function filterBySection(section) {
+            currentData = initialData.filter(row => row.section === section);
+            renderTable(currentData);
+        }
+
+        function filterByFood(food) {
+            currentData = initialData.filter(row => row.food === food);
+            renderTable(currentData);
+        }
+        
+        function sortByName(direction) {
+            currentData.sort((a, b) => {
+                if (direction === 'asc') {
+                    return a.name.localeCompare(b.name);
+                } else {
+                    return b.name.localeCompare(a.name);
+                }
+            });
+            renderTable(currentData);
+        }
+
+        function sortByGrade(direction) {
+            currentData.sort((a, b) => {
+                if (direction === 'asc') {
+                    return a.grade - b.grade;
+                } else {
+                    return b.grade - a.grade;
+                }
+            });
+            renderTable(currentData);
+        }
+
+        function resetTable() {
+            currentData = [...initialData];
+            renderTable(currentData);
+        }
+
+        function checkAnswer(question, answer) {
+            const feedbackEl = document.getElementById(`${question}-feedback`);
+            feedbackEl.classList.remove('hidden', 'bg-green-200', 'text-green-800', 'bg-red-200', 'text-red-800');
+            if (answer === 'correct') {
+                feedbackEl.textContent = 'Tama! Magaling!';
+                feedbackEl.classList.add('bg-green-200', 'text-green-800');
+            } else {
+                feedbackEl.textContent = 'Subukang muli.';
+                feedbackEl.classList.add('bg-red-200', 'text-red-800');
+            }
+            feedbackEl.classList.remove('hidden');
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('gradeChart').getContext('2d');
+            const gradeCounts = initialData.reduce((acc, student) => {
+                const grade = `Grade ${student.grade}`;
+                acc[grade] = (acc[grade] || 0) + 1;
+                return acc;
+            }, {});
+
+            const chartLabels = Object.keys(gradeCounts);
+            const chartData = Object.values(gradeCounts);
+
+            if(gradeChart) {
+                gradeChart.destroy();
+            }
+
+            gradeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Bilang ng Estudyante',
+                        data: chartData,
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(239, 68, 68, 0.6)',
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(239, 68, 68, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = () => {
+            renderTable(currentData);
+            renderChart();
+        };
+    </script>
+</body>
+</html>
