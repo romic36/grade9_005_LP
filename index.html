@@ -52,55 +52,55 @@
     <div class="container mx-auto p-4 md:p-8 max-w-5xl">
 
         <header class="text-center mb-8 md:mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Aralin sa Database: Pagsasala at Pag-uuri</h1>
-            <p class="text-slate-600 mt-2">Isang Interaktibong Gabay para sa Grade 9</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Interactive Lesson: Database Queries</h1>
+            <p class="text-slate-600 mt-2">A Guide for Grade 9 Students</p>
         </header>
 
         <main class="space-y-8">
 
             <section id="introduction" class="content-card p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-blue-600 mb-4">1. Pambungad: Ano ang Ating Matututunan?</h2>
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">1. Introduction: What We Will Learn</h2>
                 <div class="space-y-4 text-slate-700">
-                    <p>Maligayang pagdating sa ating aralin! Ang database ay isang organisadong koleksyon ng impormasyon. Ngayon, tutuklasin natin kung paano magtanong (query) sa isang database gamit ang dalawang mahahalagang pamamaraan: ang <strong>pag-filter (filtering)</strong> at <strong>pag-sort (sorting)</strong>.</p>
-                    <p>Isipin na mayroon tayong listahan ng lahat ng estudyante sa paaralan. Paano natin mabilis na mahahanap ang mga kaklase lang natin? O paano natin aayusin ang listahan ayon sa apelyido? Iyan ang sasagutin natin ngayon!</p>
+                    <p>Welcome to our lesson! A database is an organized collection of information. Today, we will explore how to ask a database for specific information (a query) using two important methods: <strong>filtering</strong> and <strong>sorting</strong>.</p>
+                    <p>Imagine we have a list of all the students in the school. How can we quickly find only our classmates? Or how can we arrange the list by last name? That's what we will answer today!</p>
                 </div>
             </section>
 
             <section id="interactive-database" class="content-card p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-blue-600 mb-4">2. Ang Ating Halimbawa: Talaan ng mga Estudyante</h2>
-                <p class="text-slate-700 mb-6">Narito ang isang simpleng database na naglalaman ng impormasyon tungkol sa ilang mag-aaral. Gagamitin natin ito upang isagawa ang pag-filter at pag-sort. Pindutin ang mga buton sa ibaba upang makita kung paano ito gumagana.</p>
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">2. Our Example: Student Table</h2>
+                <p class="text-slate-700 mb-6">Here is a simple database with information about some students. We will use this to practice filtering and sorting. Press the buttons below to see how it works.</p>
                 
                 <div id="controls" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div class="p-4 border border-slate-200 rounded-lg">
-                        <h3 class="font-bold mb-3 text-lg">Subukan ang Pag-filter (Filtering)</h3>
-                        <p class="text-sm text-slate-600 mb-3">Pumili ng kondisyon para ipakita lang ang mga partikular na datos.</p>
+                        <h3 class="font-bold mb-3 text-lg">Try Filtering</h3>
+                        <p class="text-sm text-slate-600 mb-3">Select a condition to show only a portion of the data.</p>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="filterBySection('A')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Ipakita ang Seksyon A</button>
-                            <button onclick="filterByFood('Adobo')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Mahilig sa Adobo</button>
-                            <button onclick="filterByFood('Sinigang')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Mahilig sa Sinigang</button>
+                            <button onclick="filterBySection('A')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Show Section A Only</button>
+                            <button onclick="filterByFood('Adobo')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Show Adobo Lovers</button>
+                            <button onclick="filterByFood('Sinigang')" class="interactive-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Show Sinigang Lovers</button>
                         </div>
                     </div>
                     <div class="p-4 border border-slate-200 rounded-lg">
-                        <h3 class="font-bold mb-3 text-lg">Subukan ang Pag-sort (Sorting)</h3>
-                        <p class="text-sm text-slate-600 mb-3">Ayusin ang buong listahan sa isang partikular na pagkakasunud-sunod.</p>
+                        <h3 class="font-bold mb-3 text-lg">Try Sorting</h3>
+                        <p class="text-sm text-slate-600 mb-3">Arrange the entire list in a specific order.</p>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="sortByName('asc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Pangalan (A-Z)</button>
-                            <button onclick="sortByGrade('desc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Baitang (Pataas)</button>
+                            <button onclick="sortByName('asc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Sort by Name (A-Z)</button>
+                            <button onclick="sortByGrade('desc')" class="interactive-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Sort by Grade (Highest First)</button>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-center mb-4">
-                     <button onclick="resetTable()" class="interactive-btn bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-lg">I-reset ang Talaan</button>
+                     <button onclick="resetTable()" class="interactive-btn bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-lg">Reset Table</button>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white">
                         <thead class="bg-slate-100">
                             <tr>
-                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Pangalan (Name)</th>
-                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Baitang (Grade)</th>
-                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Seksyon (Section)</th>
-                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Paboritong Pagkain (Favorite Food)</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Name</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Grade</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Section</th>
+                                <th class="py-3 px-4 text-left font-semibold text-slate-600">Favorite Food</th>
                             </tr>
                         </thead>
                         <tbody id="database-table">
@@ -110,11 +110,11 @@
             </section>
             
             <section id="assessment" class="content-card p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-blue-600 mb-4">3. Pagsusulit: Suriin ang Iyong Kaalaman</h2>
-                <p class="text-slate-700 mb-6">Ngayong alam na natin ang filtering at sorting, subukan nating sagutin ang ilang tanong. Gamitin ang interactive na tsart sa ibaba para mas maunawaan ang datos.</p>
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">3. Assessment: Test Your Knowledge</h2>
+                <p class="text-slate-700 mb-6">Now that we know about filtering and sorting, let's try to answer some questions. Use the interactive chart below to help you understand the data better.</p>
                 <div class="space-y-4">
                     <div class="p-4 border border-slate-200 rounded-lg">
-                        <p class="font-semibold mb-2">Tanong 1: Kung ifi-filter natin ang listahan para ipakita lang ang mga estudyante mula sa Grade 9, sino-sino ang makikita natin?</p>
+                        <p class="font-semibold mb-2">Question 1: If we filter the list to show only students from Grade 9, who will we see?</p>
                         <div id="q1-feedback" class="p-2 my-2 rounded-lg text-center font-medium hidden"></div>
                         <div class="flex flex-wrap gap-2">
                             <button onclick="checkAnswer('q1', 'correct')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Juan, Maria, Pedro</button>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                      <div class="p-4 border border-slate-200 rounded-lg">
-                        <p class="font-semibold mb-2">Tanong 2: Anong uri ng 'sort' ang gagamitin para ayusin ang mga pangalan mula Z hanggang A?</p>
+                        <p class="font-semibold mb-2">Question 2: What type of 'sort' would we use to arrange the names from Z to A?</p>
                         <div id="q2-feedback" class="p-2 my-2 rounded-lg text-center font-medium hidden"></div>
                         <div class="flex flex-wrap gap-2">
                             <button onclick="checkAnswer('q2', 'wrong')" class="interactive-btn bg-slate-200 hover:bg-blue-200 py-2 px-4 rounded-lg">Ascending</button>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="mt-8">
-                    <h3 class="text-xl font-bold text-center mb-4">Ilang Estudyante Bawat Baitang?</h3>
+                    <h3 class="text-xl font-bold text-center mb-4">How Many Students Per Grade?</h3>
                     <div class="chart-container">
                         <canvas id="gradeChart"></canvas>
                     </div>
@@ -218,10 +218,10 @@
             const feedbackEl = document.getElementById(`${question}-feedback`);
             feedbackEl.classList.remove('hidden', 'bg-green-200', 'text-green-800', 'bg-red-200', 'text-red-800');
             if (answer === 'correct') {
-                feedbackEl.textContent = 'Tama! Magaling!';
+                feedbackEl.textContent = 'Correct! Well done!';
                 feedbackEl.classList.add('bg-green-200', 'text-green-800');
             } else {
-                feedbackEl.textContent = 'Subukang muli.';
+                feedbackEl.textContent = 'Try again.';
                 feedbackEl.classList.add('bg-red-200', 'text-red-800');
             }
             feedbackEl.classList.remove('hidden');
@@ -247,7 +247,7 @@
                 data: {
                     labels: chartLabels,
                     datasets: [{
-                        label: 'Bilang ng Estudyante',
+                        label: 'Number of Students',
                         data: chartData,
                         backgroundColor: [
                             'rgba(59, 130, 246, 0.6)',
